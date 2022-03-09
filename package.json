@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/rushi308/cancer-research-donation#readme",
   "dependencies": {
+    "aws-sdk": "^2.1090.0",
     "dotenv": "^16.0.0",
     "mysql2-promise": "^0.1.4"
   }
