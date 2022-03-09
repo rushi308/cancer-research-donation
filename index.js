@@ -33,19 +33,28 @@ const publishSNS = async(data) => {
 
 exports.handler = async function(event, context, callback) {
     const data = event;
-    const checkUser = (await checkDonor(data.mobile))[0];
+    // Insert Data
     insertDonation(data);
+    // Check User donated for multiple time
+    const checkUser = (await checkDonor(data.mobile))[0];
     if(checkUser.donationCount > 1) {
-        // Publish SNS
+        // If Yes publish sns
         var params = {
             PhoneNumber: data.mobile,
             Message: 'Thank you for your donation at Cancer Reserach UK. You are such a human being!!'
         };
-         publishSNS(params);
+        publishSNS(params);
     }
-     const response = {
-        statusCode: 200,
-        body: {msg:"Thank you for donation"},
+    // Send Response
+    const response = {
+      statusCode: 200,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        message: `Thank you for donation`,
+      }),
+      isBase64Encoded:false
     };
     return response;
 };
