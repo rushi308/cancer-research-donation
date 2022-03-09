@@ -34,16 +34,14 @@ const publishSNS = async(data) => {
 exports.handler = async function(event, context, callback) {
     const data = event;
     const checkUser = (await checkDonor(data.mobile))[0];
+    insertDonation(data);
     if(checkUser.donationCount > 1) {
-        insertDonation(data);
         // Publish SNS
         var params = {
             PhoneNumber: data.mobile,
             Message: 'Thank you for your donation at Cancer Reserach UK. You are such a human being!!'
         };
          publishSNS(params);
-    } else {
-        insertDonation(data);
     }
      const response = {
         statusCode: 200,
