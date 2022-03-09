@@ -41,7 +41,7 @@ exports.handler = async function(event, context, callback) {
             PhoneNumber: data.mobile,
             Message: 'Thank you for your donation at Cancer Reserach UK. You are such a human being!!'
         };
-        
+         publishSNS(params);
     } else {
         insertDonation(data);
     }
