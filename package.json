@@ -1,0 +1,24 @@
+{
+  "name": "cancer-research-donation",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rushi308/cancer-research-donation.git"
+  },
+  "author": "Rushi Patel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rushi308/cancer-research-donation/issues"
+  },
+  "homepage": "https://github.com/rushi308/cancer-research-donation#readme",
+  "dependencies": {
+    "dotenv": "^16.0.0",
+    "mysql2-promise": "^0.1.4"
+  }
+}
