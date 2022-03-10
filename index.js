@@ -2,17 +2,14 @@ const donationController = require('./controller/donationController');
 const Donation = require('./models/donation');
 const response = require('./helper/response');
 const publishSNS = require('./helper/publishSNS');
-
+const donationValidator = require('./validator/donationValidator');
+ 
 exports.handler = async function(event, context, callback) {
     const data = new Donation(event);
     // Check Mobile Number in data model
-    if(!data.mobile) {
-      // Sending response for the unsuccessful innvocation
-      return response(400,'Please provide mobile number',false);
-    }
-    if(!data.amount) {
-      // Sending response for the unsuccessful innvocation
-      return response(400,'Ohh Common lets make a donation. You forget to add amount',false);
+    const validateData = donationValidator(data);
+    if (validateData.error) {
+      return response(400,validateData.error,false);
     }
     
     // Insert Data
