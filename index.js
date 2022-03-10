@@ -1,23 +1,8 @@
-const mysql = require('mysql2-promise')();
 var AWS = require("aws-sdk");
+const donationController = require('./controller/donationController');
+const Donation = require('./models/donation');
+
 var SNS = new AWS.SNS();
-mysql.configure({
-    host: process.env.RDS_HOSTNAME,
-    user: process.env.RDS_USERNAME,
-    password: process.env.RDS_PASSWORD,
-    port: process.env.RDS_PORT,
-    database:process.env.RDS_DATABASE
-});
-
-const checkDonor = async(mobileNumber) => {
-    const query = `SELECT count(id) as donationCount FROM donations WHERE mobile like '%${mobileNumber}%'`;
-    return (await mysql.execute(query))[0];
-};
-
-const insertDonation = async(data) => {
-    const query = `INSERT INTO donations(name,amount,mobile,email) VALUES ('${data.name}',${data.amount}, '${data.mobile}', '${data.email}')`;
-    mysql.execute(query);
-};
 
 const publishSNS = async(data) => {
      return new Promise((resolve,reject) => {
@@ -32,11 +17,11 @@ const publishSNS = async(data) => {
 };
 
 exports.handler = async function(event, context, callback) {
-    const data = event;
+    const data = new Donation(event);
     // Insert Data
-    insertDonation(data);
+    donationController.insertDonation(data);
     // Check User donated for multiple time
-    const checkUser = (await checkDonor(data.mobile))[0];
+    const checkUser = await donationController.checkDonor(data.mobile);
     if(checkUser.donationCount > 1) {
         // If Yes publish sns
         var params = {
