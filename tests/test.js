@@ -6,7 +6,7 @@ const lambdaTester = require("lambda-tester");
 const { validInput, invalidInput } = require("./mock");
 
 // Define a common test suite
-describe("Make Donation request Lambda Unit Test", function () {
+describe("Make Donation Request Lambda Unit Test", function () {
   let lambda = null;
 
   beforeEach(function () {

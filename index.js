@@ -5,11 +5,14 @@ const publishSNS = require('./helper/publishSNS');
 
 exports.handler = async function(event, context, callback) {
     const data = new Donation(event);
-
     // Check Mobile Number in data model
     if(!data.mobile) {
       // Sending response for the unsuccessful innvocation
       return response(400,'Please provide mobile number',false);
+    }
+    if(!data.amount) {
+      // Sending response for the unsuccessful innvocation
+      return response(400,'Ohh Common lets make a donation. You forget to add amount',false);
     }
     
     // Insert Data
