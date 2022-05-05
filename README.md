@@ -58,7 +58,7 @@ Body parameters
   "amount": 1234
 }
 ```
-## Testing Lambda Function with Mocha and Lambda Tester (Unit Test)
+### Testing Lambda Function with Mocha and Lambda Tester (Unit Test)
 
 Also implemented positive and negative test case for the donation lambda function.
 1. For Successful Invocation
